@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio | M. JEFRI AKBAR</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. SETUP VARIABEL & TEMA --- */
+        :root {
+            --bg-color: #0b0b0b;
+            --surface-color: #141414;
+            --accent-color: #8b5cf6; 
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-color: #262626;
+            --nav-bg: rgba(20, 20, 20, 0.6);
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --nav-bg: rgba(255, 255, 255, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.4s ease;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
+        
+        /* --- ANIMASI INTERAKTIF GLOBAL (HOVER & CLICK) --- */
+        a, button, .nav-links a, .tugas-card, .edu-card, .skill-item, .logo, .social-icon, .menu-toggle {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block; 
+        }
+        
+        a:hover, button:hover, .edu-card:hover { transform: translateY(-5px) scale(1.02); }
+        a:active, button:active, .tugas-card:active, .edu-card:active, .skill-item:active { transform: translateY(2px) scale(0.95); }
+
+        /* --- 2. NAVIGASI HEADER LONJONG & BLUR --- */
+        header {
+            position: fixed; top: 20px; left: 0; right: 0; margin: 0 auto;
+            width: 90%; max-width: 1000px; border-radius: 50px; 
+            padding: 15px 35px; background: var(--nav-bg); 
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        nav { display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .logo { font-size: 1.4rem; font-weight: 800; font-family: 'Inter', sans-serif; cursor: pointer; }
+        .logo span { color: var(--accent-color); }
+        
+        .nav-links { display: flex; align-items: center; gap: 35px; }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-color); }
+        
+        .btn-contact {
+            background: transparent; border: 2px solid var(--accent-color);
+            color: var(--text-main); padding: 8px 20px; border-radius: 50px;
+            font-weight: 600; cursor: pointer; font-family: 'Poppins';
+        }
+        .btn-contact:hover { background: var(--accent-color); color: white; }
+
+        .theme-toggle {
+            cursor: pointer; background: none; border: 1px solid var(--border-color); color: var(--text-main);
+            width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+        .theme-toggle:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+        .menu-toggle {
+            display: none; font-size: 1.3rem; color: var(--text-main); cursor: pointer;
+        }
+
+        /* --- 3. BERANDA --- */
+        #beranda { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; position: relative; }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+        
+        .hero-text h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 5px; font-family: 'Inter'; }
+        .hero-text h1 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 10px; font-family: 'Inter'; font-weight: 800; }
+        .hero-text h1 span { color: var(--accent-color); }
+        .hero-text .role { color: var(--text-muted); font-size: 1.2rem; margin-bottom: 25px; display: block; font-weight: 500; }
+        .hero-text p { color: var(--text-muted); line-height: 1.8; max-width: 520px; margin-bottom: 40px; font-size: 0.95rem; }
+        
+        .hero-btns { display: flex; gap: 20px; }
+        .btn-explore { background: var(--accent-color); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+        .btn-more { background: var(--surface-color); color: var(--text-main); border: 1px solid var(--border-color); padding: 15px 30px; border-radius: 8px; font-weight: 600; font-family: 'Poppins'; cursor: pointer; }
+
+        .hero-img-wrapper { position: relative; display: flex; justify-content: flex-end; }
+        .hero-img-frame { width: 320px; height: 420px; background: var(--surface-color); border-radius: 30px; position: relative; overflow: visible; z-index: 2; border: 1px solid var(--border-color); }
+        .hero-img-frame img { width: 100%; height: 100%; object-fit: cover; border-radius: 30px; position: relative; z-index: 2; }
+        .hero-img-frame::after { content: ''; position: absolute; top: -25px; right: -25px; width: 120px; height: 120px; border: 12px solid rgba(139, 92, 246, 0.15); border-radius: 50%; z-index: 1; }
+        .floating-plus { position: absolute; top: -15px; left: -20px; color: var(--accent-color); font-size: 2.2rem; z-index: 3; }
+
+        .social-fixed { position: absolute; bottom: 40px; right: 30px; display: flex; align-items: center; gap: 15px; }
+        .social-fixed span { font-weight: 700; font-family: 'Inter'; font-size: 0.95rem; margin-right: 10px; }
+        .social-icon { 
+            width: 42px; height: 42px; border-radius: 50%; 
+            background: rgba(139, 92, 246, 0.1); 
+            display: flex; justify-content: center; align-items: center;
+            color: var(--accent-color); font-size: 1.1rem; text-decoration: none;
+        }
+        .social-icon:hover { background: var(--accent-color); color: white; }
+
+        /* --- 4. PENDIDIKAN (GENERATED BY JS) --- */
+        #pendidikan { padding: 100px 0; background: var(--surface-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .edu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        
+        .edu-card { 
+            position: relative; overflow: hidden;
+            border: 2px dashed var(--border-color); padding: 40px 20px; border-radius: 20px; 
+            text-align: center; cursor: pointer; min-height: 200px; display: flex; flex-direction: column; justify-content: center;
+        }
+        .edu-card:hover { border-color: var(--accent-color); }
+        
+        .edu-bg {
+            position: absolute; inset: 0; background-size: cover; background-position: center;
+            filter: blur(5px) brightness(0.3); z-index: 1; transition: 0.4s ease;
+        }
+        .edu-card:hover .edu-bg { filter: blur(2px) brightness(0.5); transform: scale(1.05); }
+        
+        .edu-content { position: relative; z-index: 2; }
+        .edu-card h3 { font-size: 3.5rem; font-weight: 800; font-family: 'Inter'; margin-bottom: 10px; color: var(--text-main); }
+        .edu-card p { font-size: 0.95rem; font-weight: 500; color: #ffffff; }
+
+        /* --- 5. TUGAS / PROYEK --- */
+        #tugas { padding: 120px 0; text-align: center; overflow: hidden; }
+        .tag-offer { color: var(--accent-color); font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 15px; display: block; text-transform: uppercase; }
+        .tugas-header h2 { font-size: 2.8rem; font-family: 'Inter'; max-width: 700px; margin: 0 auto; line-height: 1.2; font-weight: 800; }
+        
+        .slider-wrapper { margin-top: 50px; position: relative; }
+        .tugas-slider { display: flex; gap: 25px; padding: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
+        .tugas-slider::-webkit-scrollbar { display: none; }
+        
+        .tugas-card {
+            min-width: 320px; background: var(--surface-color); padding: 25px; border-radius: 20px;
+            position: relative; opacity: 0.8; cursor: pointer; border: 2px solid var(--border-color);
+            scroll-snap-align: start; text-align: left; display: flex; flex-direction: column;
+        }
+        
+        .tugas-card .line { position: absolute; background: var(--accent-color); z-index: 5;}
+        .tugas-card .line-top { top: 0; left: 0; height: 3px; width: 0; transition: width 0.2s linear; }
+        .tugas-card .line-right { top: 0; right: 0; width: 3px; height: 0; transition: height 0.2s linear 0.2s; }
+        .tugas-card .line-bottom { bottom: 0; right: 0; height: 3px; width: 0; transition: width 0.2s linear 0.4s; }
+        .tugas-card .line-left { bottom: 0; left: 0; width: 3px; height: 0; transition: height 0.2s linear 0.6s; }
+        
+        .tugas-card:hover { opacity: 1; transform: translateY(-5px) scale(1.02); }
+        .tugas-card:hover .line-top { width: 100%; }
+        .tugas-card:hover .line-right { height: 100%; }
+        .tugas-card:hover .line-bottom { width: 100%; }
+        .tugas-card:hover .line-left { height: 100%; }
+
+        .project-thumb { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
+        .tugas-card h3 { font-size: 1.3rem; margin-bottom: 10px; font-family: 'Inter'; color: var(--text-main); }
+        .tugas-card p { font-size: 0.9rem; color: var(--text-muted); flex-grow: 1; margin-bottom: 15px; }
+        
+        .project-link {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--accent-color); text-decoration: none;
+            font-weight: 600; font-size: 0.9rem; margin-top: auto;
+            width: fit-content;
+        }
+        .project-link:hover { opacity: 0.8; }
+
+        /* --- 6. SKILLS --- */
+        #skills { padding: 100px 0; background: var(--surface-color); text-align: center; border-top: 1px solid var(--border-color); }
+        .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .skill-item { text-align: center; cursor: pointer; }
+        .skill-icon-circle { width: 110px; height: 110px; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; position: relative; border-radius: 50%; background: var(--bg-color); }
+        .skill-icon-circle svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform: rotate(-90deg); border-radius: 50%; }
+        .skill-icon-circle circle { fill: none; stroke: var(--accent-color); stroke-width: 3; stroke-dasharray: 335; stroke-dashoffset: 335; transition: stroke-dashoffset 0.8s ease-in-out; }
+        .skill-item:hover .skill-icon-circle circle { stroke-dashoffset: 0; }
+        .skill-icon-circle i { font-size: 2rem; color: var(--text-main); transition: 0.3s; z-index: 2; }
+        .skill-item:hover .skill-icon-circle i { color: var(--accent-color); transform: scale(1.1); }
+        .skill-item h3 { font-size: 1.3rem; margin-bottom: 18px; font-family: 'Inter'; }
+        .skill-item p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+        /* --- 7. MODAL --- */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { background: var(--surface-color); padding: 40px; border-radius: 20px; width: 90%; max-width: 500px; border: 1px solid var(--border-color); transform: translateY(30px); transition: transform 0.3s ease; position: relative; }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; background: none; border: none; }
+        .close-modal:hover { color: #ef4444; }
+
+        .edu-modal-img { width: 100%; height: 250px; object-fit: cover; border-radius: 15px; margin-top: 20px; margin-bottom: 20px; border: 1px solid var(--border-color); }
+        .btn-modal-link { width: 100%; justify-content: center; border-radius: 12px; margin-top: 10px; }
+
+        .fade-in { opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fade-in.show { opacity: 1; transform: translateY(0); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            header { width: 95%; padding: 15px 25px; border-radius: 30px; }
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-img-wrapper { justify-content: center; margin-top: 30px; }
+            .social-fixed { position: static; justify-content: center; margin-top: 40px; }
+            .edu-grid, .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .menu-toggle { display: block; }
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 60px; right: 0; 
+                background: var(--surface-color); 
+                padding: 25px; 
+                border-radius: 20px; 
+                border: 1px solid var(--border-color);
+                gap: 20px;
+                width: 200px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+            .nav-links.mobile-active { display: flex; }
+        }
+
+        @media (max-width: 600px) {
+            .edu-grid, .skills-grid { grid-template-columns: 1fr; }
+            .hero-text h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Jefri<span>Akbar</span></div>
+            <div class="nav-links">
+                <a href="#beranda" class="active">Home</a>
+                <a href="#pendidikan">Education</a>
+                <a href="#tugas">Projects</a>
+                <a href="#skills">Skills</a>
+                <div class="theme-toggle" id="themeBtn"><i class="fa-solid fa-moon"></i></div>
+            </div>
+            <button class="btn-contact">Contact Me</button>
+            <div class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <section id="beranda">
+        <div class="container hero-grid fade-in">
+            <div class="hero-text">
+                <h2>Hello </h2>
+                <h1>I am <span>Jefri</span></h1>
+                <span class="role">IT Education Student</span>
+                <p>Saya jefri, mahasiswa Pendidikan Teknologi Informasi yang siap membantu membangun aset digital yang kuat. Dengan kombinasi keahlian teknis dan kemampuan komunikasi yang terasah, saya menghadirkan solusi IT yang efisien dan tepat sasaran.</p>
+                <div class="hero-btns">
+                    <a href="#tugas" class="btn-explore"><i class="fa-solid fa-compass"></i> Explore</a>
+                    <button class="btn-more" onclick="openDetailModal()">Detail Saya</button>
+                </div>
+            </div>
+            <div class="hero-img-wrapper">
+                <div class="hero-img-frame">
+                    <div class="floating-plus"><i class="fa-solid fa-plus"></i></div>
+                    <img src="WhatsApp Image 2026-06-11 at 05.12.58.jpeg" alt="Foto Jefri">
+                </div>
+            </div>
+        </div>
+        
+        <div class="social-fixed">
+            <span>Find Me On</span>
+            <a href="https://www.facebook.com/akbar.jepri.50" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/25jefri.a_/" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/6285189846405" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.linkedin.com/in/jepri-akbar-4a9461383/" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+    </section>
+
+    <section id="pendidikan">
+        <div class="container">
+            <div class="edu-grid fade-in" id="eduGrid"></div>
+        </div>
+    </section>
+
+    <section id="tugas">
+        <div class="container">
+            <div class="tugas-header fade-in">
+                <span class="tag-offer">EXPLORE KARYA</span>
+                <h2></h2>
+                <p style="color: var(--text-muted); margin-top: 10px;">Swipe / Scroll left to see more <i class="fa-solid fa-arrow-right"></i></p>
+            </div>
+            
+            <div class="slider-wrapper fade-in">
+                <div class="tugas-slider" id="projectSlider"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="skills-grid fade-in">
+                <div class="skill-item"><div class="skill-icon-circle"><svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="53"></circle></svg><i class="fa-solid fa-briefcase"></i></div><h3>Workaholic</h3><p>Memiliki kemampuan interpersonal yang baik dan cepat menyesuaikan diri dengan lingkungan baru.</p></div>
+                <div class="skill-item"><div class="skill-icon-circle"><svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="53"></circle></svg><i class="fa-solid fa-comments"></i></div><h3>Communicative</h3><p>Mampu menyampaikan ide-ide desain yang kompleks menjadi konsep yang mudah dipahami.</p></div>
+                <div class="skill-item"><div class="skill-icon-circle"><svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="53"></circle></svg><i class="fa-solid fa-users"></i></div><h3>Cooperative</h3><p>Saya percaya pada kekuatan kolaborasi dan siap bersinergi untuk mencapai tujuan bersama tim.</p></div>
+                <div class="skill-item"><div class="skill-icon-circle"><svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="53"></circle></svg><i class="fa-solid fa-check-double"></i></div><h3>Perfectionist</h3><p>Memperhatikan detail kecil, mulai dari keselarasan warna, tipografi, dan tata letak yang konsisten.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('detailModal')"><i class="fa-solid fa-xmark"></i></button>
+            <h2 style="color: var(--accent-color); margin-bottom: 20px;">Identity Detail</h2>
+            <p><strong>Nama:</strong> M. Jefri Akbar</p>
+            <p><strong>Lahir:</strong> Bandar Lampung, 25 April 2007</p>
+             <p><strong>Hobi:</strong> Badminton, Renang</p>
+            <p><strong>Email:</strong> jefriakbar@email.com</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="eduModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('eduModal')"><i class="fa-solid fa-xmark"></i></button>
+            <h2 id="modalEduTitle" style="color: var(--accent-color); font-family: 'Inter';">Nama Sekolah</h2>
+            <p id="modalEduDesc" style="color: var(--text-muted); margin-top: 10px;">Deskripsi kegiatan masa sekolah.</p>
+            <img id="modalEduImg" src="" alt="Foto Sekolah" class="edu-modal-img">
+            <a id="modalEduLink" href="#" target="_blank" class="btn-explore btn-modal-link">
+                Visit School Website <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const myEducation = [
+                {
+                    title: "SD Negeri 2 Sumberejo",
+                    image: "sd 2.webp",
+                    desc: "Lulus tahun 2019. Aktif dalam kegiatan pramuka sekolah dan menyukai kelas kesenian dasar.",
+                    link: "https://www.sdn2sumberejo.sch.id/"
+                },
+                {
+                    title: "SMP Negeri 13 Bandar Lampung",
+                    image: "smp 13.jpg",
+                    desc: "Lulus tahun 2022. Aktif dalam ekskul futsal. sekolah tatap muka hanya setahun terhalang covid.",
+                    link: "https://smpn13-bdl.sch.id/" 
+                },
+                {
+                    title: "SMA Negeri 14 Bandar Lampung",
+                    image: "sman 14.jpg",
+                    desc: "Lulus tahun 2025. Dengan mata palajaran pilahan Biologi,Fisika,Sosiologi,Ekonomi. saya juga mengikuti ekstrakulikuler badminton, dan di SMA ini lah saya mulai Tertarik di bidang teknologi.",
+                    link: "https://www.sman14bl.sch.id/" 
+                },
+                {
+                    title: "Universitas Lampung",
+                    image: "unila.jpg",
+                    desc: "Masuk Fakultas Keguruan Dan Ilmu Pendidikan, jurusan Pendidikan Matematika dan Ilmu Pengetahuan Alam, Prodi Pendidikan teknologi informasi dan dari prodi inilah saya mulai Fokus mendalami apa itu interaksi manusia dan komputer, riset visual UI/UX, serta lain sebagainya yang berkaitan dengan teknologi informasi.",
+                    link: "https://www.unila.ac.id/"
+                }
+            ];
+
+            // RENDER DATA PENDIDIKAN KE HTML
+            const eduGrid = document.getElementById('eduGrid');
+            if (eduGrid) {
+                let eduHTML = '';
+                myEducation.forEach((edu, index) => {
+                    const number = String(index + 1).padStart(2, '0');
+                    eduHTML += `
+                        <div class="edu-card" onclick="openEduModal(${index})">
+                            <div class="edu-bg" style="background-image: url('${edu.image || 'https://via.placeholder.com/300'}');"></div>
+                            <div class="edu-content">
+                                <h3>${number}</h3>
+                                <p>${edu.title}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                eduGrid.innerHTML = eduHTML;
+            }
+
+            // SIMPAN DATA PENDIDIKAN KE WINDOW AGAR BISA DIAKSES OLEH FUNGSI MODAL
+            window.globalEducationData = myEducation;
+            const myProjects = [
+                  {
+                    title: "SPREADSHEET",
+                    desc: "Kumpulan tugas Latihan Speadsheet.",
+                    image: "Screenshot 2026-06-10 002135.png", 
+                    link: "https://youtu.be/i9NgFMJ6LaEt" 
+                },
+                {
+                    title: "LATIHAN 01",
+                    desc: "Soal Pengertian, Tokoh, Sejarah Grafika Komputer.",
+                    image: "Screenshot 2026-02-15 155516.png", 
+                    link: "https://youtu.be/i9NgFMJ6LaEt" 
+                },
+                {
+                    title: "LATIHAN 02",
+                    desc: "SISTEM GRAFIKA KOMPUTER.",
+                    image: "Screenshot 2026-04-03 140112.PNG",
+                    link: "https://youtu.be/_OjXkO5OVEc"
+                },
+                {
+                    title: "LATIHAN 03",
+                    desc: "Algoritma Pembentukan Garis.",
+                    image:"Screenshot 2026-04-03 140255.PNG", 
+                    link: "https://youtu.be/dIbspJsay5E"
+                },
+                {
+                    title: "LATIHAN 04",
+                    desc: "Algoritma Pembentukan Lingkaran.",
+                    image: "Screenshot 2026-04-03 140348.PNG",
+                    link: "https://youtu.be/mt4oE3MinX8"
+                },
+                {
+                    title: "LATIHAN 05",
+                    desc: "Algoritma Pembentukan Kurva.",
+                    image: "Screenshot 2026-04-03 140427.png",
+                    link: "https://youtu.be/SG1aYSXfcoM"
+                },
+                {
+                    title: "KUIS 1",
+                    desc: "Persamaan yang membentuk love.",
+                    image: "Screenshot 2026-06-09 225619.png",
+                    link: "https://youtu.be/Xil7YfZLRFo"
+                }
+            ];
+
+            // RENDER DATA PROYEK KE HTML
+            const sliderContainer = document.getElementById('projectSlider');
+            if (sliderContainer) {
+                let projectHTML = '';
+                myProjects.forEach((project) => {
+                    projectHTML += `
+                        <div class="tugas-card">
+                            <span class="line line-top"></span>
+                            <span class="line line-right"></span>
+                            <span class="line line-bottom"></span>
+                            <span class="line line-left"></span>
+                            
+                            <img src="${project.image || 'https://via.placeholder.com/320x180'}" alt="${project.title}" class="project-thumb" onerror="this.src='https://via.placeholder.com/320x180?text=Gambar+Tidak+Ditemukan'">
+                            <h3>${project.title}</h3>
+                            <p>${project.desc}</p>
+                            
+                            <a href="${project.link || '#'}" target="_blank" class="project-link">
+                                View Project <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    `;
+                });
+                sliderContainer.innerHTML = projectHTML;
+            }
+
+        
+            const themeBtn = document.getElementById('themeBtn');
+            const html = document.documentElement;
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    const current = html.getAttribute('data-theme');
+                    const target = current === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', target);
+                    themeBtn.innerHTML = target === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+                });
+            }
+
+            const menuBtn = document.getElementById('menuBtn');
+            const navLinks = document.querySelector('.nav-links');
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', () => { navLinks.classList.toggle('mobile-active'); });
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => { navLinks.classList.remove('mobile-active'); });
+                });
+            }
+
+            // ANIMASI SCROLL INTERSECTION
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        });
+
+       
+        function openDetailModal() { 
+            const modal = document.getElementById('detailModal');
+            if(modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        }
+        
+        function openEduModal(index) {
+            const modal = document.getElementById('eduModal');
+            const modalTitle = document.getElementById('modalEduTitle');
+            const modalDesc = document.getElementById('modalEduDesc');
+            const modalImg = document.getElementById('modalEduImg');
+            const modalLink = document.getElementById('modalEduLink');
+            
+            // Ambil basis data ter-index
+            const eduData = window.globalEducationData ? window.globalEducationData[index] : null;
+
+            if (modal && modalTitle && modalDesc && modalImg && eduData) {
+                modalTitle.innerText = eduData.title;
+                modalDesc.innerText = eduData.desc;
+                modalImg.src = eduData.image; 
+                modalImg.onerror = function() { this.src = 'https://via.placeholder.com/500x250?text=Gambar+Tidak+Ditemukan'; };
+                
+                // Set link sekolah dinamis
+                if (modalLink) {
+                    if (eduData.link && eduData.link !== '#' && eduData.link !== '') {
+                        modalLink.href = eduData.link;
+                        modalLink.style.display = 'inline-flex'; 
+                    } else {
+                        modalLink.style.display = 'none'; 
+                    }
+                }
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) { 
+            const modal = document.getElementById(modalId);
+            if(modal) { modal.classList.remove('active'); document.body.style.overflow = 'auto'; }
+        }
+        
+        window.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
